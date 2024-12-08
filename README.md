@@ -1,13 +1,3 @@
- ECS 152A: Computer Networks
-Spring 2022
-Project 2
-(150 points)
-Due Date: Wednesday, May 25th, 2022 (by 11:59 PM – before midnight)
-Team: The project is to be done in a team of at most 4 students. You cannot discuss your
-code/data with other classmates (except your project partners)
-All submissions (including your code) will be checked for plagiarism against other submissions
-as well as the public Internet. Plagiarized submissions will be entitled to zero points. This project must be completed in Python 3+.
-You are asked to implement a sender that provides reliable data delivery service and congestion control over the unreliable UDP transport using socket API. You will implement the following variations of this service:
 1. Stop and Wait Service
 2. Static Sliding Window Service
 3. Dynamic Sliding Window Service (TCP Tahoe)
