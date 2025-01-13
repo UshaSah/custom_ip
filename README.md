@@ -1,10 +1,10 @@
-Part 1: Stop and Wait Service (15 points)
+Part 1: Stop and Wait Service
 Implement an application-layer reliable “Stop and Wait” data delivery service over UDP sockets using sequence numbers, acknowledgments, timeouts (fixed), and retransmissions to ensure successful delivery of the provided text file (message.txt).
 
-Part 2: Static Sliding Window Service (25 points)
+Part 2: Static Sliding Window Service
 Implement an application-layer reliable “Static Sliding Window” data delivery service over UDP sockets using sequence numbers, acknowledgments, timeouts (fixed), and retransmissions to ensure successful delivery of the provided text file (message.txt). Implement a fixed-size (5-packet) sliding window.
 
-Part 3: Dynamic Sliding Window Service (40 points)
+Part 3: Dynamic Sliding Window Service
 In this part, implement a “Dynamic Sliding Window” service at the sender. Assume that the receive window (rwnd) at the receiver is sufficiently large. Thus, the sliding window size is determined by cwnd at the sender. Implement slow start and congestion avoidance as defined in TCP Tahoe. Start with the initial congestion window of 1 packet and ssthresh of 16 packets. You should use 5 seconds as the initial timeout value and then use a dynamic timeout based on the procedure described in Section 3.5.3 of the textbook to transfer the message.txt file.
 
 Part 4: Custom Congestion Control Service
