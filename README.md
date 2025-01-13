@@ -16,7 +16,7 @@ Implementation Details
 1. Stop and Wait Service
 2. Static Sliding Window Service
 3. Dynamic Sliding Window Service (TCP Tahoe)
-4. Custom Congestion Control Service (Extra Credit)
+4. Custom Congestion Control Service
 You need to implement a sender for each of the above services separately.
 Your Sender:
 The sender should run on localhost on a port other than the one used by the receiver. Sender for each service needs to transfer the message.txt file of size ~2.5MB to the receiver. You should use 5 seconds as the fixed timeout unless suggested otherwise. Set packet size to 1000 bytes. Each sent packet should contain only 1 header field in the following format:
