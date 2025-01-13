@@ -1,3 +1,18 @@
+Part 1: Stop and Wait Service (15 points)
+Implement an application-layer reliable “Stop and Wait” data delivery service over UDP sockets using sequence numbers, acknowledgments, timeouts (fixed), and retransmissions to ensure successful delivery of the provided text file (message.txt).
+
+Part 2: Static Sliding Window Service (25 points)
+Implement an application-layer reliable “Static Sliding Window” data delivery service over UDP sockets using sequence numbers, acknowledgments, timeouts (fixed), and retransmissions to ensure successful delivery of the provided text file (message.txt). Implement a fixed-size (5-packet) sliding window.
+
+Part 3: Dynamic Sliding Window Service (40 points)
+In this part, implement a “Dynamic Sliding Window” service at the sender. Assume that the receive window (rwnd) at the receiver is sufficiently large. Thus, the sliding window size is determined by cwnd at the sender. Implement slow start and congestion avoidance as defined in TCP Tahoe. Start with the initial congestion window of 1 packet and ssthresh of 16 packets. You should use 5 seconds as the initial timeout value and then use a dynamic timeout based on the procedure described in Section 3.5.3 of the textbook to transfer the message.txt file.
+
+Part 4: Custom Congestion Control Service
+Implement your custom UDP-based congestion control protocol that ensures reliable delivery of message.txt. You are allowed to change the sender any way you want (e.g., use custom window sizing/sliding strategy, timeout adjustments, re-transmissions, etc), but you cannot change the receiver.
+
+
+
+Implementation Details
 1. Stop and Wait Service
 2. Static Sliding Window Service
 3. Dynamic Sliding Window Service (TCP Tahoe)
@@ -11,12 +26,13 @@ You are provided with the receiver code. Everytime you re-test the sender, make 
 The receiver implements a cumulative acknowledgment. For example:
 If the receiver receives packets with sequence number 1, 2, 4, 5 (packet 3 was lost) then it acknowledges:
     
- ● packet 1 with sequence # 1
+● packet 1 with sequence # 1
 ● packet 2 with sequence # 2
 ● packet 4 with sequence # 2
 ● packet 5 with sequence # 2
 When the sender eventually retransmits packet 3 to the receiver, the receiver acknowledges the receipt of packet 3 with sequence # 5, i.e. every packet from 1 to 5 has been received.
 The cumulative acknowledgment means that the receiver receives a packet, extracts the sequence number, and sends back the acknowledgment cumulatively where the acknowledgment n being sent back means that every packet from n, n-1. n-2,..., to 1 has been received.
+
 Command line inputs:
 ● Receiver should take exactly 1 command line input = port number on which you want your receiver to run.
 ● Sender should take exactly 1 command line input = port number on which your receiver is running.
@@ -33,7 +49,7 @@ Here, Delayavg, Throughputavg, and Performance are as defined in the metrics sec
 You need to run and test all the services in presence of the dynamic network conditions as enforced by “Linux Traffic Controller (TC)” implemented in the bash file train.sh. You need to explicitly impose these dynamic network conditions before running/testing your sender implementations. This can be achieved by running bash train.sh on shell with sudo access.
    2
 
- The train.sh provides the following bandwidth profile.
+The train.sh provides the following bandwidth profile.
 TC is a Linux-based utility that also requires root permissions to “shape” your network interface. Thus, we ask that you set up a Linux Virtual Machine (VM) to avoid any issues with your regular operating system. Following are the steps that you can follow to install a VM:
 1. Download and Install Oracle’s VM VirtualBox: https://download.virtualbox.org/virtualbox/6.1.34/VirtualBox-6.1.34-150636-Win.exe
 2. Download Ubuntu 20.04.4 LTS (Focal Fossa) (ubuntu-20.04.4-desktop-amd64.iso): https://releases.ubuntu.com/20.04/ubuntu-20.04.4-desktop-amd64.iso
@@ -72,22 +88,6 @@ Throughputavg = Average per-packet throughput observed across all packets transm
 Units: The Delay should be in milliseconds and the Throughput should be in bits per second.
 Simulation:
 You may test 1 sender and 1 receiver scenario while building your sender. But, you are required to simultaneously run two pairs of the same sender and receiver to report the above metrics. So, you shall first run two receivers (e.g. on separate terminals) with different port numbers and then run two senders (one for each receiver) at the same time. Finally include the output of any one sender in your report. Your submission will be tested in this scenario of two sender-receiver pairs competing with each other.
- 4
 
-  Part 1: Stop and Wait Service (15 points)
-Implement an application-layer reliable “Stop and Wait” data delivery service over UDP sockets using sequence numbers, acknowledgments, timeouts (fixed), and retransmissions to ensure successful delivery of the provided text file (message.txt).
-Part 2: Static Sliding Window Service (25 points)
-Implement an application-layer reliable “Static Sliding Window” data delivery service over UDP sockets using sequence numbers, acknowledgments, timeouts (fixed), and retransmissions to ensure successful delivery of the provided text file (message.txt). Implement a fixed-size (5-packet) sliding window.
-Part 3: Dynamic Sliding Window Service (40 points)
-In this part, implement a “Dynamic Sliding Window” service at the sender. Assume that the receive window (rwnd) at the receiver is sufficiently large. Thus, the sliding window size is determined by cwnd at the sender. Implement slow start and congestion avoidance as defined in TCP Tahoe. Start with the initial congestion window of 1 packet and ssthresh of 16 packets. You should use 5 seconds as the initial timeout value and then use a dynamic timeout based on the procedure described in Section 3.5.3 of the textbook to transfer the message.txt file.
-Part 4: Custom Congestion Control Service (Optional) (Extra Credit)
-Implement your custom UDP-based congestion control protocol that ensures reliable delivery of message.txt. You are allowed to change the sender any way you want (e.g., use custom window sizing/sliding strategy, timeout adjustments, re-transmissions, etc), but you cannot change the receiver.
-       5
 
- Extra Credit Details:
-1. If you outperform TCP Tahoe in terms of the performance metric on the train.sh bandwidth profile, you will be awarded 50% extra credit for this project.
-2. If you outperform TCP Tahoe on the secret test.sh bandwidth profile, you will be awarded an additional 50% extra credit for this project. Thus, you can effectively double your grade for this project by simply outperforming TCP Tahoe!
-3. If your proposed congestion control outperforms TCP Tahoe and all other student submissions on test.sh bandwidth profile, you will be awarded a direct A + in the course.
-Project Report Details (70 points)
 
-                  8
